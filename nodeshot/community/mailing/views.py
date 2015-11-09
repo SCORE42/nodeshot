@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from nodeshot.core.nodes.models import Node
 
 from .models import Inward
+from .serializers import InwardSerializer
 from .settings import settings, INWARD_REQUIRE_AUTH
 
 
@@ -24,7 +25,7 @@ class ContactNode(generics.GenericAPIView):
     """
     authentication_classes = (authentication.SessionAuthentication,)
     permission_classes = (permissions.IsAuthenticated,) if INWARD_REQUIRE_AUTH else ()
-    # serializer_class = InwardSerializer
+    serializer_class = InwardSerializer
     content_type = 'node'
     model = Node
     slug_field = 'slug'

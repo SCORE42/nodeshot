@@ -2,6 +2,7 @@ import sys
 import string
 import random
 import traceback
+from logging import error
 from optparse import make_option
 
 from netaddr import ip
@@ -160,12 +161,13 @@ class Command(BaseCommand):
         except KeyboardInterrupt:
             self.message('\n\nOperation cancelled...')
             delete = True
-        except Exception:
+        except Exception as e:
             tb = traceback.format_exc()
             delete = True
             # rollback database transaction
             transaction.rollback()
             self.message('Got exception:\n\n%s' % tb)
+            error('import_old_nodeshot: %s' % e)
 
         if delete:
             self.delete_imported_data()
@@ -355,9 +357,12 @@ choose (enter the number of) one of the following layers:
 
         for olduser in OldUser.objects.all():
             try:
-                user = User.objects.get(username=olduser.username)
+                user = User.objects.get(Q(username=olduser.username) | Q(email=olduser.email))
             except User.DoesNotExist:
                 user = User()
+            except User.MultipleObjectsReturned:
+                continue
+
             user.username = olduser.username
             user.password = olduser.password
             user.first_name = olduser.first_name
@@ -455,12 +460,12 @@ choose (enter the number of) one of the following layers:
                     user = User.objects.get(email=email)
                 # otherwise report error
                 else:
-                    user = None
                     tb = traceback.format_exc()
                     self.message('Could not save user %s, got exception:\n\n%s' % (user.username, tb))
+                    continue
 
             # if we got a user to add
-            if user is not None:
+            if user:
                 # store id
                 self.users_dict[email]['id'] = user.id
                 # append to saved users
@@ -609,6 +614,7 @@ choose (enter the number of) one of the following layers:
             except Exception:
                 tb = traceback.format_exc()
                 self.message('Could not save device %s, got exception:\n\n%s' % (device.name, tb))
+                continue
 
             try:
                 routing_protocol = RoutingProtocol.objects.filter(name__icontains=old_device.routing_protocol)[0]

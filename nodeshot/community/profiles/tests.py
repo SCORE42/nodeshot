@@ -376,7 +376,7 @@ class TestProfiles(TestCase):
 
         # POST 400 invalid credentials
         response = self.client.post(url, {"username": "wrong", "password": "wrong"})
-        self.assertContains(response, 'Ivalid login credentials', status_code=400)
+        self.assertContains(response, 'Invalid login credentials', status_code=400)
 
         # POST 400 missing credentials
         response = self.client.post(url)
@@ -484,8 +484,8 @@ class TestProfiles(TestCase):
     def test_password_confirmation_field_in_html(self):
         url = reverse('api_profile_list')
         response = self.client.get(url, HTTP_ACCEPT='text/html')
-        self.assertContains(response, 'Password</label>')
-        self.assertContains(response, 'Password confirmation</label>')
+        self.assertContains(response, '<input name="password"')
+        self.assertContains(response, '<input name="password_confirmation"')
 
     def test_delete_user(self):
         User.objects.all().delete()

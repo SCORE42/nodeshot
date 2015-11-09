@@ -60,7 +60,7 @@ if PROTOCOL == 'https':
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     os.environ['HTTPS'] = 'on'
 
-SENTRY_ENABLED = bool(getattr(settings, 'RAVEN_CONFIG', {}).get('DNS'))
+SENTRY_ENABLED = bool(getattr(settings, 'RAVEN_CONFIG', {}).get('dsn'))
 
 MIDDLEWARE_CLASSES = ['django.middleware.common.CommonMiddleware']
 
@@ -130,7 +130,7 @@ INSTALLED_APPS = [
     'grappelli',
     'filebrowser',
     'django.contrib.admin',
-    # 3d parthy django apps
+    # 3d party django apps
     'rest_framework',
     'rest_framework_gis',
     'rest_framework_swagger',
@@ -258,17 +258,17 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['mainlog'],
+            'handlers': ['mainlog', 'sentry'],
             'level': 'ERROR',
             'propagate': True,
         },
         'django.request': {
-            'handlers': ['mail_admins', 'mainlog'],
+            'handlers': ['mail_admins', 'mainlog', 'sentry'],
             'level': 'ERROR',
             'propagate': True,
         },
         '': {
-            'handlers': ['mainlog'],
+            'handlers': ['mainlog', 'sentry'],
             'level': 'ERROR',
         },
         'django.db.backends': {

@@ -4,7 +4,7 @@
 # run pip install -r requirements
 
 psycopg2
-Django==1.8.3  # rq.filter: >=1.8,<1.9
+Django==1.8.4  # rq.filter: >=1.8,<1.9
 
 # python libraries
 Pillow
@@ -16,21 +16,20 @@ six
 wsgiref
 requests
 jsonfield
-netdiff==0.4.3
+netdiff==0.4.4
 
 # better admin
-django-filebrowser==3.5.7
-# waiting for https://github.com/sehmaschine/django-filebrowser/issues/273 to be fixed
-#django-grappelli==2.6.5
+django-grappelli==2.7.1
+django-filebrowser==3.6.1
 django-leaflet==0.16.0
 django-hstore==1.4
 
 # RESTful API and API documentation
-djangorestframework==3.1.3  # rq.filter: >=3.1,<4.0
+djangorestframework==3.2.3  # rq.filter: >=3.2,<4.0
 drf-extensions==0.2.7
 django-rest-swagger
 markdown
-djangorestframework-gis==0.9.3
+djangorestframework-gis==0.9.4
 djangorestframework-hstore==1.3
 geojson-elevation==0.1
 
@@ -38,7 +37,7 @@ geojson-elevation==0.1
 python-social-auth==0.2.12
 
 # versionable content
-django-reversion==1.8.7
+django-reversion==1.9.3
 
 # asynchronous tasks
 celery==3.1.18
@@ -70,5 +69,5 @@ raven
 django-rosetta
 
 # metrics
-influxdb==2.6.0
+influxdb==2.9.2
 tld
