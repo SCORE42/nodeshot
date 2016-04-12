@@ -10,8 +10,4 @@ API_APPS_ENABLED = getattr(settings, 'NODESHOT_API_APPS_ENABLED', [
     'nodeshot.community.participation',
     'nodeshot.community.notifications',
     'nodeshot.community.mailing',
-    'nodeshot.networking.net',
-    'nodeshot.networking.links',
-    'nodeshot.networking.services',
-    'nodeshot.interop.open311',
 ])
