@@ -121,11 +121,6 @@ INSTALLED_APPS = [
     'nodeshot.community.mailing',
     'nodeshot.community.participation',
     'nodeshot.community.notifications',
-    'nodeshot.networking.net',
-    'nodeshot.networking.links',
-    'nodeshot.networking.hardware',
-    'nodeshot.networking.connectors',
-    'nodeshot.interop.open311',
     # admin site
     'grappelli.dashboard',
     'grappelli',
